@@ -1,0 +1,55 @@
+{% extends 'backend/layouts/app.html' %}
+
+{% block main_content %}
+
+<div class="col-xl-12 col-lg-12">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">All Categories Created by You</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success" role="alert">
+            {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for category in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{% url 'app_category:edit_category' pk=category.id %}"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'app_category:delete_category' pk=category.id %}"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}
